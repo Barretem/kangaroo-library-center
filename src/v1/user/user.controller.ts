@@ -7,8 +7,10 @@ import {
 } from '@nestjs/swagger';
 import { UserService } from './user.service';
 import { ResUser } from './classes/resUser.class';
-import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './classes/user.class';
+import { Single } from '../../common/classes/single.classes';
+
+import { CreateUserDto } from './dto/create-user.dto';
 
 @ApiBearerAuth()
 @ApiUseTags('用户模块')
@@ -28,12 +30,20 @@ export class UserController {
 
   @Delete(':ids')
   @ApiOperation({ title: '单个/批量删除用户' })
+  @ApiResponse({
+    status: 200,
+    type: Single,
+  })
   async deleteUsers(@Param('ids') ids: string) {
     return this.userService.findOne(ids);
   }
 
   @Put(':id')
   @ApiOperation({ title: '根据用户ID修改用户信息' })
+  @ApiResponse({
+    status: 200,
+    type: ResUser,
+  })
   async changeUserInfo(@Param('id') id: string) {
     return this.userService.findOne(id);
   }
@@ -42,7 +52,6 @@ export class UserController {
   @ApiOperation({ title: '根据用户ID获取用户信息' })
   @ApiResponse({
     status: 200,
-    description: 'The found record',
     type: ResUser,
   })
   async findOne(@Param('id') id: string) {
@@ -53,7 +62,6 @@ export class UserController {
   @ApiOperation({ title: '获取用户列表' })
   @ApiResponse({
     status: 200,
-    description: 'The found record',
     type: ResUser,
   })
   async findAll() {
@@ -64,7 +72,6 @@ export class UserController {
   @ApiOperation({ title: '根据用户名密码登录' })
   @ApiResponse({
     status: 200,
-    description: 'The found record',
     type: ResUser,
   })
   async login() {
