@@ -1,6 +1,12 @@
 import { IsString, IsEmail } from 'class-validator';
 import { ApiModelProperty } from '@nestjs/swagger';
 
+enum UserRole {
+  ROOT = 'root',
+  ADMIN = 'admin',
+  GUEST = 'guest',
+}
+
 export class CreateUserDto {
   @ApiModelProperty({ required: true })
   @IsString()
@@ -15,7 +21,7 @@ export class CreateUserDto {
   @IsString()
   readonly password: string;
 
-  @ApiModelProperty({ enum: ['root', 'admin', 'guest'], default: 'guest' })
+  @ApiModelProperty({ enum: UserRole, default: UserRole.GUEST })
   @IsString()
-  readonly rule: string;
+  readonly role: UserRole;
 }

@@ -8,7 +8,7 @@ import {
   Generated,
 } from 'typeorm';
 
-export enum UserRole {
+enum UserRole {
   ROOT = 'root',
   ADMIN = 'admin',
   GUEST = 'guest',
@@ -39,11 +39,10 @@ export class User {
   })
   role: UserRole; // 用户权限
 
-  @Column()
+  @Column({
+    default: false,
+  })
   isVerify: boolean; // 是否已经被验证
-
-  @Column({ type: 'date' })
-  outdateTime: Date; // 账号过期日期
 
   @CreateDateColumn()
   createdTime: Date; // 用户创建时间

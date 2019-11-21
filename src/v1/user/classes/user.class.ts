@@ -17,5 +17,5 @@ export class User {
     example: 'guest',
     description: '用户权限',
   })
-  rule: string;
+  role: string;
 }
