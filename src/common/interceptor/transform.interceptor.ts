@@ -10,7 +10,7 @@ interface Response<T> {
   payload: T;
 }
 @Injectable()
-export class TransformInterceptor<T>
+export default class TransformInterceptor<T>
   implements NestInterceptor<T, Response<T>> {
   intercept(
     context: ExecutionContext,
@@ -19,7 +19,7 @@ export class TransformInterceptor<T>
     return next.handle().pipe(
       map(data => {
         return {
-          code: 1,
+          code: 0,
           message: 'success',
           payload: data,
         };

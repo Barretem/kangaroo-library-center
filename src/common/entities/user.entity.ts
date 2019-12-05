@@ -4,9 +4,8 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
-  PrimaryColumn,
-  Generated,
 } from 'typeorm';
+import { Exclude } from 'class-transformer';
 
 enum UserRole {
   ROOT = 'root',
@@ -15,20 +14,17 @@ enum UserRole {
 }
 
 @Entity()
-export class User {
-  @PrimaryGeneratedColumn()
-  id: number; // ID
-
-  @Column()
-  @Generated('uuid')
-  userId: string;
+export default class UserEntity {
+  @PrimaryGeneratedColumn('uuid')
+  userId: string; // ID
 
   @Column({ length: 500, unique: true })
   username: string; // 用户名
 
-  @PrimaryColumn({ length: 100, unique: true })
+  @Column({ length: 100, unique: true })
   email: string; // 用户邮箱
 
+  @Exclude()
   @Column({ length: 500 })
   password: string; // 用户密码
 
@@ -50,6 +46,11 @@ export class User {
   @UpdateDateColumn()
   updatedTime: Date; // 用户信息更新时间
 
+  @Exclude()
   @Column({ default: false })
   isDeleted: boolean; // 用户是否被删除
+
+  constructor(partial: Partial<UserEntity>) {
+    Object.assign(this, partial);
+  }
 }

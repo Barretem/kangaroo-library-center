@@ -1,10 +1,14 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { CatsModule } from './cats/cats.module';
-import { UserModule } from './v1/user/user.module';
+import UserModule from './v1/user/user.module';
+import KnowledgeTypeModule from './v1/knowledge-type/knowledge-type.module';
 
-import { User } from './common/entities/user.entity';
+import UserEntity from './common/entities/user.entity';
+import KnowledgeType from './common/entities/knowledge-type.entity';
+import Knowledge from './common/entities/knowledge.entity';
+
+import KnowledgeModule from './v1/knowledge/knowledge.module';
 
 @Module({
   imports: [
@@ -15,11 +19,12 @@ import { User } from './common/entities/user.entity';
       username: 'root',
       password: 'barretem@123',
       database: 'kangaroo_library_center',
-      entities: [User],
+      entities: [UserEntity, KnowledgeType, Knowledge],
       synchronize: true,
     }),
     UserModule,
-    CatsModule,
-  ]
+    KnowledgeTypeModule,
+    KnowledgeModule,
+  ],
 })
-export class AppModule {}
+export default class AppModule {}

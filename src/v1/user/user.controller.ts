@@ -1,41 +1,66 @@
-import { Controller, Get, Param, Post, Body, Delete, Put } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Param,
+  Post,
+  Body,
+  Delete,
+  Put,
+  UseInterceptors,
+  ClassSerializerInterceptor,
+} from '@nestjs/common';
 import {
   ApiBearerAuth,
   ApiOperation,
   ApiResponse,
   ApiUseTags,
 } from '@nestjs/swagger';
-import { UserService } from './user.service';
-import { ResUser } from './classes/resUser.class';
-import { User } from './classes/user.class';
-import { Single } from '../../common/classes/single.classes';
+import UserService from './user.service';
+import ResUser from './classes/resUser.class';
+import ResUserList from './classes/resUserList.class';
+import DeleteSuccessRes from '../../common/classes/deleteSuccessRes.classes';
+import ErrorRes from '../../common/classes/errorRes.classes';
 
-import { CreateUserDto } from './dto/create-user.dto';
+import UserEntity from '../../common/entities/user.entity';
+
+import CreateUserDto from './dto/create-user.dto';
+import ChangeUserInfoDto from './dto/change-user-info.dto';
+import LoginByEmailDto from './dto/login-by-email.dto';
+import LoginByUsernameDto from './dto/login-by-username.dto';
 
 @ApiBearerAuth()
 @ApiUseTags('用户模块')
 @Controller('user')
-export class UserController {
+@UseInterceptors(ClassSerializerInterceptor)
+export default class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Post()
   @ApiOperation({ title: '用户注册/创建用户' })
   @ApiResponse({
-    status: 200,
+    status: 201,
     type: ResUser,
   })
-  async createOne(@Body() createUserDto: CreateUserDto): Promise<User> {
+  @ApiResponse({
+    status: 400,
+    type: ErrorRes,
+  })
+  async createOne(@Body() createUserDto: CreateUserDto): Promise<UserEntity> {
     return this.userService.create(createUserDto);
   }
 
   @Delete(':ids')
-  @ApiOperation({ title: '单个/批量删除用户' })
+  @ApiOperation({ title: '单个/批量删除用户', description: '如果要删除多个用‘,’隔开' })
   @ApiResponse({
     status: 200,
-    type: Single,
+    type: DeleteSuccessRes,
+  })
+  @ApiResponse({
+    status: 400,
+    type: ErrorRes,
   })
   async deleteUsers(@Param('ids') ids: string) {
-    return this.userService.findOne(ids);
+    return this.userService.deleteUserById(ids);
   }
 
   @Put(':id')
@@ -44,8 +69,15 @@ export class UserController {
     status: 200,
     type: ResUser,
   })
-  async changeUserInfo(@Param('id') id: string) {
-    return this.userService.findOne(id);
+  @ApiResponse({
+    status: 400,
+    type: ErrorRes,
+  })
+  async changeUserInfo(@Param('id') id: string, @Body() data: ChangeUserInfoDto) {
+    return this.userService.changeUserInfo({
+      ...data,
+      userId: id,
+    });
   }
 
   @Get(':id')
@@ -54,27 +86,49 @@ export class UserController {
     status: 200,
     type: ResUser,
   })
+  @ApiResponse({
+    status: 400,
+    type: ErrorRes,
+  })
   async findOne(@Param('id') id: string) {
-    return this.userService.findOne(+id);
+    return this.userService.findUserById(id);
   }
 
   @Get()
   @ApiOperation({ title: '获取用户列表' })
   @ApiResponse({
     status: 200,
-    type: ResUser,
+    type: ResUserList,
   })
-  async findAll() {
-    return this.userService.findOne(0);
+  async findAll(): Promise<UserEntity[]> {
+    return this.userService.findAll();
   }
 
-  @Get('/login')
+  @Post('loginByEmail')
   @ApiOperation({ title: '根据用户名密码登录' })
+  @ApiResponse({
+    status: 201,
+    type: ResUser,
+  })
+  @ApiResponse({
+    status: 400,
+    type: ErrorRes,
+  })
+  async loginByEmail(@Body() data: LoginByEmailDto): Promise<UserEntity> {
+    return this.userService.loginByEmail(data);
+  }
+
+  @Post('loginByUsername')
+  @ApiOperation({ title: '根据用户邮箱登录' })
   @ApiResponse({
     status: 200,
     type: ResUser,
   })
-  async login() {
-    return this.userService.findOne(0);
+  @ApiResponse({
+    status: 400,
+    type: ErrorRes,
+  })
+  async loginByUsername(@Body() data: LoginByUsernameDto): Promise<UserEntity> {
+    return this.userService.loginByUsername(data);
   }
 }

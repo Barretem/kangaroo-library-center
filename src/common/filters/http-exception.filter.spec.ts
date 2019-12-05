@@ -1,4 +1,4 @@
-import { HttpExceptionFilter } from './http-exception.filter';
+import HttpExceptionFilter from './http-exception.filter';
 
 describe('HttpExceptionFilter', () => {
   it('should be defined', () => {

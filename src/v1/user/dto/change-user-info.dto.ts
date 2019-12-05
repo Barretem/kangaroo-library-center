@@ -7,22 +7,24 @@ enum UserRole {
   GUEST = 'guest',
 }
 
-export default class CreateUserDto {
-  @ApiModelProperty({ required: true, description: '用户名' })
+export default class ChangeUserInfoDto {
+  readonly userId?: string;
+
+  @ApiModelProperty()
   @IsString()
   readonly username: string;
 
-  @ApiModelProperty({ required: true, description: '用户邮箱' })
+  @ApiModelProperty()
   @IsString()
   @IsEmail()
   readonly email: string;
 
-  @ApiModelProperty({ required: true, minLength: 6, description: '用户密码，不少于6位' })
+  @ApiModelProperty()
   @IsString()
   @MinLength(6)
   readonly password: string;
 
-  @ApiModelProperty({ enum: UserRole, default: UserRole.GUEST, description: '用户角色' })
+  @ApiModelProperty({ enum: UserRole })
   @IsString()
   readonly role: UserRole;
 }
