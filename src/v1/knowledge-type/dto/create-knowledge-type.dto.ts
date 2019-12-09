@@ -1,8 +1,8 @@
 import { IsString, IsNumber } from 'class-validator';
-import { ApiModelProperty } from '@nestjs/swagger';
+import { ApiModelProperty, ApiModelPropertyOptional } from '@nestjs/swagger';
 
 export default class CreateKnowledgeTypeDto {
-  @ApiModelProperty()
+  @ApiModelProperty({ description: '分类名称' })
   @IsString()
   readonly typeName: string;
 
@@ -10,7 +10,11 @@ export default class CreateKnowledgeTypeDto {
   @IsString()
   readonly createdBy: string;
 
-  @ApiModelProperty()
+  @ApiModelPropertyOptional({ description: '分类描述' })
+  @IsString()
+  readonly description?: string;
+
+  @ApiModelPropertyOptional()
   @IsNumber()
   readonly parentId?: number;
 }

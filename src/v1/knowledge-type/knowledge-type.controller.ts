@@ -26,14 +26,14 @@ import ResKnowledgeTypeTree from './classes/res-knowledge-type-tree.class';
 import KnowledgeTypeService from './knowledge-type.service';
 
 import CreateDto from './dto/create-knowledge-type.dto';
-import ChangeDto from './dto/create-knowledge-type.dto';
+import ChangeDto from './dto/change-knowledge-type.dto';
 
 @ApiBearerAuth()
 @ApiUseTags('知识分类模块')
 @Controller('knowledge-type')
 @UseInterceptors(ClassSerializerInterceptor)
 export default class KnowledgeTypeController {
-  constructor(private readonly knowledgeTypeSerivce: KnowledgeTypeService) {}
+  constructor(private readonly knowledgeTypeService: KnowledgeTypeService) {}
 
   @Post()
   @ApiOperation({ title: '创建知识' })
@@ -46,7 +46,7 @@ export default class KnowledgeTypeController {
     type: ErrorRes,
   })
   async create(@Body() data: CreateDto) {
-    return data;
+    return this.knowledgeTypeService.create(data);
   }
 
   @Delete(':ids')
@@ -56,7 +56,7 @@ export default class KnowledgeTypeController {
     type: DeleteSuccessRes,
   })
   async delete(@Param('ids') ids: string) {
-    return {};
+    return this.knowledgeTypeService.deleteTypeByIds(ids);
   }
 
   @Put(':id')
@@ -86,7 +86,7 @@ export default class KnowledgeTypeController {
     type: ResKnowledgeTypeList,
   })
   async getList() {
-    return {};
+    return this.knowledgeTypeService.findList();
   }
 
   @Get('getTree')

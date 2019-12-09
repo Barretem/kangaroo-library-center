@@ -7,6 +7,12 @@ export default class KnowledgeTypeClass {
   @ApiModelProperty({ example: 'nodeJS', description: '知识类名' })
   typeName: string;
 
+  @ApiModelProperty({
+    example: '我是描述',
+    description: '分类描述',
+  })
+  description: string;
+
   @ApiModelProperty({ example: -1, description: '父ID，根节点父节点ID为-1' })
   parentId: number;
 

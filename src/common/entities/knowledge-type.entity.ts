@@ -14,9 +14,12 @@ export default class KnowledgeType {
   @Column({ length: 500, unique: true })
   typeName: string; // 知识类型名
 
+  @Column({ length: 500 })
+  description: string; // 分类描述
+
   @Column({
     default: -1,
-   })
+  })
   parentId: number; // 父知识点ID
 
   @Column({ length: 500 })

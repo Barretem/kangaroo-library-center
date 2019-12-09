@@ -45,8 +45,8 @@ export default class UserController {
     status: 400,
     type: ErrorRes,
   })
-  async createOne(@Body() createUserDto: CreateUserDto): Promise<UserEntity> {
-    return this.userService.create(createUserDto);
+  async createOne(@Body() data: CreateUserDto): Promise<UserEntity> {
+    return this.userService.create(data);
   }
 
   @Delete(':ids')
