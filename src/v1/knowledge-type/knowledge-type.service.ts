@@ -2,6 +2,8 @@ import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
+import { arrayToTree } from '../../common/utils/tree';
+
 import CreateKnowledgeTypeDto from './dto/create-knowledge-type.dto';
 import ChangeDto from './dto/change-knowledge-type.dto';
 
@@ -80,12 +82,25 @@ export default class KnowledgeTypeService {
   }
 
   /**
+   * 单条查询分类
+   * @param id
+   */
+  async findItem(id: number): Promise<KnowledgeTypeEntity> {
+    const item = await this.knowledgeTypeRepository.findOne(id);
+    if (!item) {
+      throw new HttpException('该分类不存在', HttpStatus.BAD_REQUEST);
+    }
+    return item;
+  }
+  /**
    * 根据IDS删除知识分类
    * @param id
    */
   async deleteTypeById(id: number) {
     // 查询该分类下是否有子分类，如果有子分类则不允许删除
-    const childType = await this.knowledgeTypeRepository.findOne({ parentId: id });
+    const childType = await this.knowledgeTypeRepository.findOne({
+      parentId: id,
+    });
     if (childType) {
       throw new HttpException(
         '该分类有下有子分类，不允许删除',
@@ -99,20 +114,45 @@ export default class KnowledgeTypeService {
    * 批量删除分类
    * @param ids
    */
-  async deleteTypeByIds(ids: string) {
+  async deleteTypeByIds(ids: string): Promise<boolean> {
     const typeIds = ids.split(',');
     const promiseList = [];
     for (const item of typeIds) {
       promiseList.push(this.deleteTypeById(Number(item)));
     }
-    return Promise.all(promiseList).then(res => {
-      return true;
-    }).catch(e => {
-      throw new HttpException('删除失败，请重试', HttpStatus.BAD_REQUEST);
+    return Promise.all(promiseList).then(() => true);
+  }
+
+  /**
+   * 修改分类信息
+   * @param data
+   */
+  async changeType(id: number, data: ChangeDto): Promise<KnowledgeTypeEntity> {
+    const { parentId } = data;
+    // 检查父分类是否存在
+    let path = '';
+
+    if (parentId) {
+      const parentItem = await this.knowledgeTypeRepository.findOne(parentId);
+      if (!parentItem) {
+        throw new HttpException('父级分类不存在，修改失败', HttpStatus.BAD_REQUEST);
+      }
+      path = await this.createPathByParentId(parentId);
+    }
+    const beforeInfo = await this.knowledgeTypeRepository.findOne(id);
+    return this.knowledgeTypeRepository.save({
+      ...beforeInfo,
+      ...data,
+      path,
     });
   }
 
-  async changeType(data) {
-    return this.knowledgeTypeRepository.save(data);
+  /**
+   * 获取完整的树
+   */
+  async getWholeTree(): Promise<any> {
+    // 获取分类列表
+    const list = await this.findList();
+    return arrayToTree(list);
   }
 }

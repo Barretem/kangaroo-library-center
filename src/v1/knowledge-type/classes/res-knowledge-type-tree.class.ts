@@ -8,6 +8,6 @@ export default class ResKnowledgeTypeTree extends Single {
     super();
   }
 
-  @ApiModelProperty({ type: KnowledgeTypeChildrenClass })
+  @ApiModelProperty({ type: [KnowledgeTypeChildrenClass] })
   payload: object;
 }

@@ -65,8 +65,18 @@ export default class KnowledgeTypeController {
     status: 200,
     type: ResKnowledgeType,
   })
-  async change(@Param('id') id: string, @Body() data: ChangeDto) {
-    return {};
+  async change(@Param('id') id: number, @Body() data: ChangeDto) {
+    return this.knowledgeTypeService.changeType(id, data);
+  }
+
+  @Get('getTree')
+  @ApiOperation({ title: '获取知识分类列表树' })
+  @ApiResponse({
+    status: 200,
+    type: ResKnowledgeTypeTree,
+  })
+  async getTree() {
+    return this.knowledgeTypeService.getWholeTree();
   }
 
   @Get(':id')
@@ -76,7 +86,7 @@ export default class KnowledgeTypeController {
     type: ResKnowledgeType,
   })
   async getOne(@Param('id') id: number) {
-    return {};
+    return this.knowledgeTypeService.findItem(id);
   }
 
   @Get()
@@ -89,18 +99,8 @@ export default class KnowledgeTypeController {
     return this.knowledgeTypeService.findList();
   }
 
-  @Get('getTree')
-  @ApiOperation({ title: '获取知识分类列表树' })
-  @ApiResponse({
-    status: 200,
-    type: ResKnowledgeTypeTree,
-  })
-  async getTree() {
-    return {};
-  }
-
   @Get('getChildren')
-  @ApiOperation({ title: '获取子知识分类列表' })
+  @ApiOperation({ title: '获取子知识分类列表 TODO' })
   @ApiResponse({
     status: 200,
     type: ResKnowledgeTypeList,
@@ -110,7 +110,7 @@ export default class KnowledgeTypeController {
   }
 
   @Get('getChildrenTree')
-  @ApiOperation({ title: '获取子知识分类列表树' })
+  @ApiOperation({ title: '获取子知识分类列表树 TODO' })
   @ApiResponse({
     status: 200,
     type: ResKnowledgeTypeTree,
