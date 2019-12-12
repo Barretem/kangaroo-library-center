@@ -7,6 +7,7 @@ import {
   UseInterceptors,
   ClassSerializerInterceptor,
   Body,
+  Param,
 } from '@nestjs/common';
 import {
   ApiBearerAuth,
@@ -30,7 +31,7 @@ import ChangeKnowledgeDto from './dto/change-knowledge.dto';
 @Controller('knowledge')
 @UseInterceptors(ClassSerializerInterceptor)
 export default class KnowledgeController {
-  constructor(private readonly KnowledgeService: KnowledgeService) {}
+  constructor(private readonly knowledgeService: KnowledgeService) {}
 
   @Post()
   @ApiOperation({ title: '创建知识点' })
@@ -43,7 +44,7 @@ export default class KnowledgeController {
     type: ErrorRes,
   })
   async create(@Body() data: CreateKnowledgeDto) {
-    return new CreateKnowledgeDto();
+    return this.knowledgeService.createOne(data);
   }
 
   @Delete(':ids')
@@ -52,8 +53,8 @@ export default class KnowledgeController {
     status: 200,
     type: DeleteSuccessRes,
   })
-  async delete() {
-    return {};
+  async delete(@Param('ids') ids: string) {
+    return this.knowledgeService.deleteByIds(ids);
   }
 
   @Put(':id')
@@ -62,8 +63,8 @@ export default class KnowledgeController {
     status: 200,
     type: ResKnowledge,
   })
-  async change(@Body() data: ChangeKnowledgeDto) {
-    return {};
+  async change(@Param('id') id: number, @Body() data: ChangeKnowledgeDto) {
+    return this.knowledgeService.change(id, data);
   }
 
   @Get(':id')
@@ -72,17 +73,17 @@ export default class KnowledgeController {
     status: 200,
     type: ResKnowledge,
   })
-  async getOne() {
-    return {};
+  async getOne(@Param('id') id: number) {
+    return this.knowledgeService.findOne(id);
   }
 
   @Get()
-  @ApiOperation({ title: '根据ID获取知识点列表' })
+  @ApiOperation({ title: '获取知识点列表' })
   @ApiResponse({
     status: 200,
     type: ResKnowledgeList,
   })
   async getList() {
-    return {};
+    return this.knowledgeService.findList();
   }
 }

@@ -2,10 +2,6 @@ import { IsString, IsNumber } from 'class-validator';
 import { ApiModelProperty } from '@nestjs/swagger';
 
 export default class CreateKnowledgeDto {
-  @ApiModelProperty({ description: '知识点ID'})
-  @IsNumber()
-  id: number; // ID
-
   @ApiModelProperty({ description: '知识点标题' })
   @IsString()
   title: string; // 知识

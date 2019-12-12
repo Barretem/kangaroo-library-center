@@ -14,7 +14,7 @@ enum UserRole {
 }
 
 @Entity()
-export default class UserEntity {
+export default class User {
   @PrimaryGeneratedColumn('uuid')
   userId: string; // ID
 
@@ -50,7 +50,7 @@ export default class UserEntity {
   @Column({ default: false })
   isDeleted: boolean; // 用户是否被删除
 
-  constructor(partial: Partial<UserEntity>) {
+  constructor(partial: Partial<User>) {
     Object.assign(this, partial);
   }
 }

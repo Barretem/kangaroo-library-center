@@ -11,7 +11,7 @@ export default class Knowledge {
   @PrimaryGeneratedColumn()
   id: number; // ID
 
-  @Column({ length: 500, unique: true })
+  @Column({ length: 500, nullable: false })
   title: string; // 知识
 
   @Column({
@@ -31,7 +31,7 @@ export default class Knowledge {
   @Column()
   knowledgeTypeId: number; // 分类类型
 
-  @Column({ length: 500 })
+  @Column({ length: 500, nullable: true })
   updatedBy: string; // 创建用户的ID
 
   @Column({ length: 500 })
