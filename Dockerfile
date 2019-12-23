@@ -8,4 +8,4 @@ WORKDIR /home/project
 # 向外提供3000端口
 EXPOSE 3000
 # 容器创建完成后执行的命令
-CMD npm install yarn -g && yarn && yarn start
+CMD yarn && yarn start
