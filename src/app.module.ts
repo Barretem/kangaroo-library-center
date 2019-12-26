@@ -9,19 +9,21 @@ import KnowledgeType from './common/entities/knowledge-type.entity';
 import Knowledge from './common/entities/knowledge.entity';
 
 import KnowledgeModule from './v1/knowledge/knowledge.module';
-
+import { ConfigModule } from './config/config.module';
+console.log(process.env.DB_HOST);
 @Module({
   imports: [
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: 'localhost',
-      port: 3306,
-      username: 'root',
-      password: 'barretem@123',
-      database: 'kangaroo_library_center',
+      host: process.env.DB_HOST,
+      port: Number(process.env.DB_PORT),
+      username: process.env.DB_USERNAME,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_NAME,
       entities: [UserEntity, KnowledgeType, Knowledge],
       synchronize: true,
     }),
+    ConfigModule,
     UserModule,
     KnowledgeTypeModule,
     KnowledgeModule,
