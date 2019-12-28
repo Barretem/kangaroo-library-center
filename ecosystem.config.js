@@ -27,7 +27,7 @@ module.exports = {
       repo: 'https://github.com/Barretem/kangaroo-library-center.git',
       path: '/home/backend/kangaroo',
       'post-deploy':
-        'cp /home/backend/kangaroo/production.env /home/backend/kangaroo/source/production.env && echo $PWD && yarn && yarn build && pm2 reload ecosystem.config.js --env production',
+        'cd /home/backend/kangaroo/source && cp /home/backend/kangaroo/production.env /home/backend/kangaroo/source/production.env && echo $PWD && yarn && yarn build && pm2 reload ecosystem.config.js --env production',
     },
   },
 };
