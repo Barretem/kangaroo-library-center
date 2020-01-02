@@ -1,0 +1,22 @@
+language: node_js
+node_js:
+- '8'
+branchs:
+  only:
+  - master
+install:
+- yarn
+script:
+- yarn build
+env:
+  global:
+    secure: *********
+addons:
+  ssh_known_hosts:
+  - 112.74.201.109 #受信主机，你的Linux服务器ip
+before_install:
+- openssl aes-256-cbc -K $encrypted_****_key -iv $encrypted_****_iv
+  -in id_rsa.enc -out ~/.ssh/id_rsa -d
+after_success:
+- chmod 600 ~/.ssh/id_rsa   #还是Linux文件权限问题
+- ssh fontend@112.74.201.109 -o StrictHostKeyChecking=no 'cd ~/kangaroo && sh start.sh'   #使用ssh连接服务器
