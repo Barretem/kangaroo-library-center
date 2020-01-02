@@ -13,4 +13,4 @@ before_install:
 
 after_success:
 - chmod 600 ~/.ssh/id_rsa   #还是Linux文件权限问题
-- ssh blog@112.74.201.109 -o StrictHostKeyChecking=no 'cd ~/kangaroo && sh start.sh'   #使用ssh连接服务器
+- ssh fontend@112.74.201.109 -o StrictHostKeyChecking=no 'cd ~/kangaroo && sh start.sh'   #使用ssh连接服务器
