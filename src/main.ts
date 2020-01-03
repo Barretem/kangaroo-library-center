@@ -11,17 +11,19 @@ async function bootstrap() {
   const options = new DocumentBuilder()
     .setTitle('袋鼠库后台API')
     .setDescription('袋鼠库后台API列表')
+    .setBasePath('kangaroo-library-center')
     .setVersion('1.0')
     .build();
   const document = SwaggerModule.createDocument(app, options);
-  SwaggerModule.setup('api', app, document);
+  SwaggerModule.setup('apiDoc', app, document);
   app.use(payload);
+  app.setGlobalPrefix('kangaroo-library-center');
   // 全局注册错误的过滤器
   app.useGlobalFilters(new HttpExceptionFilter());
   // 全局注册拦截器
   app.useGlobalInterceptors(new TransformInterceptor());
   // 全局注册管道
   app.useGlobalPipes(new ValidationPipe());
-  await app.listen(3000);
+  await app.listen(3333);
 }
 bootstrap();
