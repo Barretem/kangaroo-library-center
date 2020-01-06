@@ -1,6 +1,6 @@
 import { ApiModelProperty } from '@nestjs/swagger';
 
-export default class ErrorRes {
+export class ErrorRes {
   @ApiModelProperty({
     example: 1,
     description: '返回码，0: 成功 1: 失败',

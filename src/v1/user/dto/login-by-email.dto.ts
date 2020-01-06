@@ -1,7 +1,7 @@
 import { IsEmail, MinLength, IsString } from 'class-validator';
 import { ApiModelProperty } from '@nestjs/swagger';
 
-export default class LoginByEmailDto {
+export class LoginByEmailDto {
   @ApiModelProperty({ required: true })
   @IsEmail()
   readonly email: string;

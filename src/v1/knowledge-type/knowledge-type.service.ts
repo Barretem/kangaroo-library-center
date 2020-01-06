@@ -4,13 +4,13 @@ import { Repository } from 'typeorm';
 
 import { arrayToTree } from '../../common/utils/tree';
 
-import CreateKnowledgeTypeDto from './dto/create-knowledge-type.dto';
-import ChangeDto from './dto/change-knowledge-type.dto';
+import { CreateKnowledgeTypeDto } from './dto/create-knowledge-type.dto';
+import { ChangeKnowledgeTypeDto } from './dto/change-knowledge-type.dto';
 
-import KnowledgeTypeEntity from '../../common/entities/knowledge-type.entity';
+import { KnowledgeTypeEntity } from '../../common/entities/knowledge-type.entity';
 
 @Injectable()
-export default class KnowledgeTypeService {
+export class KnowledgeTypeService {
   constructor(
     @InjectRepository(KnowledgeTypeEntity)
     private readonly knowledgeTypeRepository: Repository<KnowledgeTypeEntity>,
@@ -127,7 +127,7 @@ export default class KnowledgeTypeService {
    * 修改分类信息
    * @param data
    */
-  async changeType(id: number, data: ChangeDto): Promise<KnowledgeTypeEntity> {
+  async changeType(id: number, data: ChangeKnowledgeTypeDto): Promise<KnowledgeTypeEntity> {
     const { parentId } = data;
     // 检查父分类是否存在
     let path = '';

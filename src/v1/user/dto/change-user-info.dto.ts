@@ -7,7 +7,7 @@ enum UserRole {
   GUEST = 'guest',
 }
 
-export default class ChangeUserInfoDto {
+export class ChangeUserInfoDto {
   readonly userId?: string;
 
   @ApiModelProperty()

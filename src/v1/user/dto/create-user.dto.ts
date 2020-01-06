@@ -7,7 +7,7 @@ enum UserRole {
   GUEST = 'guest',
 }
 
-export default class CreateUserDto {
+export class CreateUserDto {
   @ApiModelProperty({ required: true, description: '用户名' })
   @IsString()
   readonly username: string;

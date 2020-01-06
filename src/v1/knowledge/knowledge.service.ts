@@ -1,13 +1,13 @@
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import KnowledgeEntity from '../../common/entities/knowledge.entity';
-import CreateKnowledgeDto from './dto/create-knowledge.dto';
-import ChangeKnowledgeDto from './dto/change-knowledge.dto';
-import KnowledgeTypeEntity from '../../common/entities/knowledge-type.entity';
+import { KnowledgeEntity } from '../../common/entities/knowledge.entity';
+import { CreateKnowledgeDto } from './dto/create-knowledge.dto';
+import { ChangeKnowledgeDto } from './dto/change-knowledge.dto';
+import { KnowledgeTypeEntity } from '../../common/entities/knowledge-type.entity';
 
 @Injectable()
-export default class KnowledgeService {
+export class KnowledgeService {
   constructor(
     @InjectRepository(KnowledgeEntity)
     private readonly knowledgeRepository: Repository<KnowledgeEntity>,

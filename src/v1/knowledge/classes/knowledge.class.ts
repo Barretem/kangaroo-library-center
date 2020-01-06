@@ -1,6 +1,6 @@
 import { ApiModelProperty } from '@nestjs/swagger';
 
-export default class KnowledgeClass {
+export class KnowledgeClass {
   @ApiModelProperty({ example: 0, description: '知识点ID'})
   id: number; // ID
 

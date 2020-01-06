@@ -1,6 +1,6 @@
 import { ApiModelProperty } from '@nestjs/swagger';
 
-export default class DeleteSuccessRes {
+export class DeleteSuccessRes {
   @ApiModelProperty({
     example: 0,
     description: '返回码，0: 成功；1: 失败',

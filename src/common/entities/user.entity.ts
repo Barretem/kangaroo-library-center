@@ -6,6 +6,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { Exclude } from 'class-transformer';
+import { ApiModelProperty } from '@nestjs/swagger';
 
 enum UserRole {
   ROOT = 'root',
@@ -13,14 +14,20 @@ enum UserRole {
   GUEST = 'guest',
 }
 
-@Entity()
-export default class User {
+@Entity('user')
+export class UserEntity {
+  @ApiModelProperty({
+    example: '3d5784f6-9749-4939-bcce-3176d0433ad1',
+    description: '用户ID',
+  })
   @PrimaryGeneratedColumn('uuid')
   userId: string; // ID
 
+  @ApiModelProperty({ example: '张三', description: '用户名' })
   @Column({ length: 500, unique: true })
   username: string; // 用户名
 
+  @ApiModelProperty({ example: '123@qq.com', description: '用户邮箱' })
   @Column({ length: 100, unique: true })
   email: string; // 用户邮箱
 
@@ -28,6 +35,10 @@ export default class User {
   @Column({ length: 500 })
   password: string; // 用户密码
 
+  @ApiModelProperty({
+    example: 'guest',
+    description: '用户权限：root,admin,guest',
+  })
   @Column({
     type: 'enum',
     enum: UserRole,
@@ -35,14 +46,20 @@ export default class User {
   })
   role: UserRole; // 用户权限
 
+  @ApiModelProperty({
+    example: false,
+    description: '用户邮箱是否已经被验证：true：已经被验证，false:还没被验证',
+  })
   @Column({
     default: false,
   })
-  isVerify: boolean; // 是否已经被验证
+  isVerify: boolean; // 用户邮箱是否已经被验证
 
+  @Exclude()
   @CreateDateColumn()
   createdTime: Date; // 用户创建时间
 
+  @Exclude()
   @UpdateDateColumn()
   updatedTime: Date; // 用户信息更新时间
 
@@ -50,7 +67,11 @@ export default class User {
   @Column({ default: false })
   isDeleted: boolean; // 用户是否被删除
 
-  constructor(partial: Partial<User>) {
+  @Exclude()
+  @Column({ default: false })
+  isActive: boolean; // 用户是否被删除
+
+  constructor(partial: Partial<UserEntity>) {
     Object.assign(this, partial);
   }
 }

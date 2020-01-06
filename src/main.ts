@@ -1,10 +1,10 @@
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
-import AppModule from './app.module';
+import { AppModule } from './app.module';
 import { payload } from './common/middleware/payload.middleware';
-import TransformInterceptor from './common/interceptor/transform.interceptor';
-import HttpExceptionFilter from './common/filters/http-exception.filter';
+import { TransformInterceptor } from './common/interceptor/transform.interceptor';
+import { HttpExceptionFilter } from './common/filters/http-exception.filter';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -13,6 +13,7 @@ async function bootstrap() {
     .setDescription('袋鼠库后台API列表')
     .setBasePath('kangaroo-library-center')
     .setVersion('1.0')
+    .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('apiDoc', app, document);

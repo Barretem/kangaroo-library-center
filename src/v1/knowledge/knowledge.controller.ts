@@ -16,28 +16,27 @@ import {
   ApiUseTags,
 } from '@nestjs/swagger';
 
-import KnowledgeService from './knowledge.service';
-import ResKnowledgeType from './classes/res-knowledge.class';
-import ErrorRes from '../../common/classes/errorRes.classes';
-import DeleteSuccessRes from '../../common/classes/deleteSuccessRes.classes';
-import ResKnowledge from './classes/res-knowledge.class';
-import ResKnowledgeList from './classes/res-knowledge-list.class';
+import { KnowledgeService } from './knowledge.service';
+import { ErrorRes } from '../../common/classes/errorRes.classes';
+import { DeleteSuccessRes } from '../../common/classes/deleteSuccessRes.classes';
+import { ResKnowledge } from './classes/res-knowledge.class';
+import { ResKnowledgeList } from './classes/res-knowledge-list.class';
 
-import CreateKnowledgeDto from './dto/create-knowledge.dto';
-import ChangeKnowledgeDto from './dto/change-knowledge.dto';
+import { CreateKnowledgeDto } from './dto/create-knowledge.dto';
+import { ChangeKnowledgeDto } from './dto/change-knowledge.dto';
 
 @ApiBearerAuth()
 @ApiUseTags('知识点模块')
 @Controller('knowledge')
 @UseInterceptors(ClassSerializerInterceptor)
-export default class KnowledgeController {
+export class KnowledgeController {
   constructor(private readonly knowledgeService: KnowledgeService) {}
 
   @Post()
   @ApiOperation({ title: '创建知识点' })
   @ApiResponse({
     status: 201,
-    type: ResKnowledgeType,
+    type: ResKnowledge,
   })
   @ApiResponse({
     status: 400,

@@ -1,13 +1,13 @@
 import { ApiModelProperty } from '@nestjs/swagger';
 
-import Single from '../../../common/classes/single.classes';
-import KnowledgeClass from './knowledge.class';
+import { Single } from '../../../common/classes/single.classes';
+import { KnowledgeEntity } from '../../../common/entities/knowledge.entity';
 
-export default class ResKnowledge extends Single {
+export class ResKnowledge extends Single {
   constructor() {
     super();
   }
 
-  @ApiModelProperty({ type: [KnowledgeClass] })
+  @ApiModelProperty({ type: [KnowledgeEntity] })
   payload: object;
 }

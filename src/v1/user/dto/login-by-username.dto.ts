@@ -1,7 +1,7 @@
 import { IsString, MinLength } from 'class-validator';
 import { ApiModelProperty } from '@nestjs/swagger';
 
-export default class LoginByUsernameDto {
+export class LoginByUsernameDto {
   @ApiModelProperty({ required: true })
   @IsString()
   readonly username: string;

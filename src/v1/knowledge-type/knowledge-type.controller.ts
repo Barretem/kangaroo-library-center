@@ -17,22 +17,22 @@ import {
   ApiUseTags,
 } from '@nestjs/swagger';
 
-import ErrorRes from '../../common/classes/errorRes.classes';
-import ResKnowledgeType from './classes/res-knowledge-type.class';
-import ResKnowledgeTypeList from './classes/res-knowledge-type-list.class';
-import DeleteSuccessRes from '../../common/classes/deleteSuccessRes.classes';
-import ResKnowledgeTypeTree from './classes/res-knowledge-type-tree.class';
+import { ErrorRes } from '../../common/classes/errorRes.classes';
+import { ResKnowledgeType } from './classes/res-knowledge-type.class';
+import { ResKnowledgeTypeList } from './classes/res-knowledge-type-list.class';
+import { DeleteSuccessRes } from '../../common/classes/deleteSuccessRes.classes';
+import { ResKnowledgeTypeTree } from './classes/res-knowledge-type-tree.class';
 
-import KnowledgeTypeService from './knowledge-type.service';
+import { KnowledgeTypeService } from './knowledge-type.service';
 
-import CreateDto from './dto/create-knowledge-type.dto';
-import ChangeDto from './dto/change-knowledge-type.dto';
+import { CreateKnowledgeTypeDto } from './dto/create-knowledge-type.dto';
+import { ChangeKnowledgeTypeDto } from './dto/change-knowledge-type.dto';
 
 @ApiBearerAuth()
 @ApiUseTags('知识分类模块')
 @Controller('knowledge-type')
 @UseInterceptors(ClassSerializerInterceptor)
-export default class KnowledgeTypeController {
+export class KnowledgeTypeController {
   constructor(private readonly knowledgeTypeService: KnowledgeTypeService) {}
 
   @Post()
@@ -45,7 +45,7 @@ export default class KnowledgeTypeController {
     status: 400,
     type: ErrorRes,
   })
-  async create(@Body() data: CreateDto) {
+  async create(@Body() data: CreateKnowledgeTypeDto) {
     return this.knowledgeTypeService.create(data);
   }
 
@@ -65,7 +65,7 @@ export default class KnowledgeTypeController {
     status: 200,
     type: ResKnowledgeType,
   })
-  async change(@Param('id') id: number, @Body() data: ChangeDto) {
+  async change(@Param('id') id: number, @Body() data: ChangeKnowledgeTypeDto) {
     return this.knowledgeTypeService.changeType(id, data);
   }
 

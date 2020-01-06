@@ -1,6 +1,6 @@
 import { ApiModelProperty } from '@nestjs/swagger';
 
-export default class Single {
+export class Single {
   @ApiModelProperty({
     example: 0,
     description: '返回码，0: 失败；1: 成功',

@@ -1,13 +1,13 @@
 import { ApiModelProperty } from '@nestjs/swagger';
 
-import Single from '../../../common/classes/single.classes';
-import User from './user.class';
+import { Single } from '../../../common/classes/single.classes';
+import { UserEntity } from '../../../common/entities/user.entity';
 
-export default class ResUserList extends Single {
+export class ResUserList extends Single {
   constructor() {
     super();
   }
 
-  @ApiModelProperty({ type: [User] })
+  @ApiModelProperty({ type: [UserEntity] })
   payload: object;
 }
