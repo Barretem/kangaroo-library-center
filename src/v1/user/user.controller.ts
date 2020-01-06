@@ -28,7 +28,7 @@ import { UserEntity } from '../../common/entities/user.entity';
 
 import { CreateUserDto } from './dto/create-user.dto';
 import { ChangeUserInfoDto } from './dto/change-user-info.dto';
-import { request } from 'http';
+import { managerPass } from '../../common/utils/index';
 
 @ApiBearerAuth()
 @ApiUseTags('用户模块')
@@ -48,8 +48,11 @@ export class UserController {
     status: 400,
     type: ErrorRes,
   })
-  async createOne(@Body() data: CreateUserDto): Promise<UserEntity> {
-    return this.userService.create(data);
+  async createOne(@Body() data, @Request() req): Promise<UserEntity> {
+    // 判断当前用户，只有管理员才能添加用户
+    managerPass(req);
+    const { userId } = req;
+    return this.userService.create(data, userId);
   }
 
   @Delete(':ids')
@@ -65,7 +68,9 @@ export class UserController {
     status: 400,
     type: ErrorRes,
   })
-  async deleteUsers(@Param('ids') ids: string) {
+  async deleteUsers(@Param('ids') ids: string, @Request() req) {
+    managerPass(req);
+
     return this.userService.deleteUserById(ids);
   }
 
@@ -82,11 +87,16 @@ export class UserController {
   async changeUserInfo(
     @Param('id') id: string,
     @Body() data: ChangeUserInfoDto,
+    @Request() req,
   ) {
-    return this.userService.changeUserInfo({
-      ...data,
-      userId: id,
-    });
+    const { userId } = req;
+    return this.userService.changeUserInfo(
+      {
+        ...data,
+        userId: id,
+      },
+      userId,
+    );
   }
 
   @Get(':id')

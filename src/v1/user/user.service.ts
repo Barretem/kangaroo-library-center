@@ -19,7 +19,7 @@ export class UserService {
    * 新增用户
    * @param user CreateUserDto
    */
-  public async create(user: CreateUserDto): Promise<UserEntity> {
+  public async create(user: CreateUserDto, createdBy: string): Promise<UserEntity> {
     const { username, email } = user;
     const usernameUsed = await this.findUserByUsername(username);
     if (usernameUsed) {
@@ -39,6 +39,7 @@ export class UserService {
     const createdUser = await this.userRepository.save({
       ...user,
       password,
+      createdBy,
     });
     return new UserEntity(createdUser);
   }
@@ -56,7 +57,7 @@ export class UserService {
    * 修改用户信息
    * @param user
    */
-  public async changeUserInfo(user: ChangeUserInfoDto): Promise<UserEntity> {
+  public async changeUserInfo(user: ChangeUserInfoDto, updatedBy: string): Promise<UserEntity> {
     const { userId, password } = user;
     const targetUser = await this.findUserById(userId);
     if (targetUser) {
@@ -66,6 +67,7 @@ export class UserService {
       const changeUser = await this.userRepository.save({
         ...user,
         password: passwordMD5,
+        updatedBy,
       });
       return new UserEntity(changeUser);
     } else {
