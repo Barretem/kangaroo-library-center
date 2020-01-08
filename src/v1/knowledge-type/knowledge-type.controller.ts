@@ -29,8 +29,7 @@ import { CreateKnowledgeTypeDto } from './dto/create-knowledge-type.dto';
 import { ChangeKnowledgeTypeDto } from './dto/change-knowledge-type.dto';
 
 @ApiBearerAuth()
-@ApiUseTags('知识分类模块')
-@ApiUseTags('knowledge-type')
+@ApiUseTags('knowledgeType')
 @Controller('knowledge-type')
 @UseInterceptors(ClassSerializerInterceptor)
 export class KnowledgeTypeController {

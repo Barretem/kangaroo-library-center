@@ -26,7 +26,6 @@ import { CreateKnowledgeDto } from './dto/create-knowledge.dto';
 import { ChangeKnowledgeDto } from './dto/change-knowledge.dto';
 
 @ApiBearerAuth()
-@ApiUseTags('知识点模块')
 @ApiUseTags('knowledge')
 @Controller('knowledge')
 @UseInterceptors(ClassSerializerInterceptor)

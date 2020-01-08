@@ -31,7 +31,6 @@ import { ChangeUserInfoDto } from './dto/change-user-info.dto';
 import { managerPass } from '../../common/utils/index';
 
 @ApiBearerAuth()
-@ApiUseTags('用户模块')
 @ApiUseTags('user')
 @Controller('user')
 @UseInterceptors(ClassSerializerInterceptor)
