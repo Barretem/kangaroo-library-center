@@ -18,6 +18,7 @@ import {
 
 @ApiBearerAuth()
 @ApiUseTags('用户登录校验模块')
+@ApiUseTags('auth')
 @Controller('auth')
 export class AuthController {
   constructor(
