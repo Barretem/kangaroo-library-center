@@ -25,7 +25,10 @@ export class AuthController {
     private readonly userService: UserService,
   ) {}
   @Post('loginByEmail')
-  @ApiOperation({ title: '根据用户邮箱登录' })
+  @ApiOperation({
+    title: '根据用户邮箱登录',
+    operationId: 'loginByEmail',
+  })
   @ApiResponse({
     status: 201,
     type: ResLoginClass,
@@ -43,7 +46,10 @@ export class AuthController {
   }
 
   @Post('loginByUsername')
-  @ApiOperation({ title: '根据用户名密码登录' })
+  @ApiOperation({
+    title: '根据用户名密码登录',
+    operationId: 'loginByUsername',
+  })
   @ApiResponse({
     status: 200,
     type: ResUser,

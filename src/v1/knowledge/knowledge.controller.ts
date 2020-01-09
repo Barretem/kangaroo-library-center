@@ -33,7 +33,10 @@ export class KnowledgeController {
   constructor(private readonly knowledgeService: KnowledgeService) {}
 
   @Post()
-  @ApiOperation({ title: '创建知识点' })
+  @ApiOperation({
+    title: '创建知识点',
+    operationId: 'create',
+  })
   @ApiResponse({
     status: 201,
     type: ResKnowledge,
@@ -47,7 +50,10 @@ export class KnowledgeController {
   }
 
   @Delete(':ids')
-  @ApiOperation({ title: '根据ID删除知识点' })
+  @ApiOperation({
+    title: '根据ID删除知识点',
+    operationId: 'delete',
+  })
   @ApiResponse({
     status: 200,
     type: DeleteSuccessRes,
@@ -57,7 +63,10 @@ export class KnowledgeController {
   }
 
   @Put(':id')
-  @ApiOperation({ title: '根据ID修改知识点' })
+  @ApiOperation({
+    title: '根据ID修改知识点',
+    operationId: 'change',
+  })
   @ApiResponse({
     status: 200,
     type: ResKnowledge,
@@ -67,7 +76,10 @@ export class KnowledgeController {
   }
 
   @Get(':id')
-  @ApiOperation({ title: '根据ID获取知识点详情' })
+  @ApiOperation({
+    title: '根据ID获取知识点详情',
+    operationId: 'getOne',
+  })
   @ApiResponse({
     status: 200,
     type: ResKnowledge,
@@ -77,7 +89,10 @@ export class KnowledgeController {
   }
 
   @Get()
-  @ApiOperation({ title: '获取知识点列表' })
+  @ApiOperation({
+    title: '获取知识点列表',
+    operationId: 'getList',
+  })
   @ApiResponse({
     status: 200,
     type: ResKnowledgeList,

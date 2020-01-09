@@ -39,7 +39,7 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Post()
-  @ApiOperation({ title: '用户注册/创建用户' })
+  @ApiOperation({ title: '用户注册/创建用户', operationId: 'createOne' })
   @ApiResponse({
     status: 201,
     type: ResUser,
@@ -59,6 +59,7 @@ export class UserController {
   @ApiOperation({
     title: '单个/批量删除用户',
     description: '如果要删除多个用‘,’隔开',
+    operationId: 'deleteUsers',
   })
   @ApiResponse({
     status: 200,
@@ -75,7 +76,10 @@ export class UserController {
   }
 
   @Put(':id')
-  @ApiOperation({ title: '根据用户ID修改用户信息' })
+  @ApiOperation({
+    title: '根据用户ID修改用户信息',
+    operationId: 'changeUserInfo',
+  })
   @ApiResponse({
     status: 200,
     type: ResUser,
@@ -100,7 +104,10 @@ export class UserController {
   }
 
   @Get(':id')
-  @ApiOperation({ title: '根据用户ID获取用户信息' })
+  @ApiOperation({
+    title: '根据用户ID获取用户信息',
+    operationId: 'findOne',
+  })
   @ApiResponse({
     status: 200,
     type: ResUser,
@@ -114,7 +121,10 @@ export class UserController {
   }
 
   @Get()
-  @ApiOperation({ title: '获取用户列表' })
+  @ApiOperation({
+    title: '获取用户列表',
+    operationId: 'findAll',
+  })
   @ApiResponse({
     status: 200,
     type: ResUserList,

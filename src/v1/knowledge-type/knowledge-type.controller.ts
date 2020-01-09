@@ -36,7 +36,10 @@ export class KnowledgeTypeController {
   constructor(private readonly knowledgeTypeService: KnowledgeTypeService) {}
 
   @Post()
-  @ApiOperation({ title: '创建知识' })
+  @ApiOperation({
+    title: '创建知识',
+    operationId: 'create',
+  })
   @ApiResponse({
     status: 201,
     type: ResKnowledgeType,
@@ -50,7 +53,10 @@ export class KnowledgeTypeController {
   }
 
   @Delete(':ids')
-  @ApiOperation({ title: '删除知识分类' })
+  @ApiOperation({
+    title: '删除知识分类',
+    operationId: 'delete',
+  })
   @ApiResponse({
     status: 200,
     type: DeleteSuccessRes,
@@ -60,7 +66,10 @@ export class KnowledgeTypeController {
   }
 
   @Put(':id')
-  @ApiOperation({ title: '修改知识分类' })
+  @ApiOperation({
+    title: '修改知识分类',
+    operationId: 'change',
+  })
   @ApiResponse({
     status: 200,
     type: ResKnowledgeType,
@@ -70,7 +79,10 @@ export class KnowledgeTypeController {
   }
 
   @Get('getTree')
-  @ApiOperation({ title: '获取知识分类列表树' })
+  @ApiOperation({
+    title: '获取知识分类列表树',
+    operationId: 'getTree',
+  })
   @ApiResponse({
     status: 200,
     type: ResKnowledgeTypeTree,
@@ -80,7 +92,10 @@ export class KnowledgeTypeController {
   }
 
   @Get(':id')
-  @ApiOperation({ title: '根据ID获取知识分类' })
+  @ApiOperation({
+    title: '根据ID获取知识分类',
+    operationId: 'getOne',
+  })
   @ApiResponse({
     status: 200,
     type: ResKnowledgeType,
@@ -90,7 +105,10 @@ export class KnowledgeTypeController {
   }
 
   @Get()
-  @ApiOperation({ title: '获取知识分类列表' })
+  @ApiOperation({
+    title: '获取知识分类列表',
+    operationId: 'getList',
+  })
   @ApiResponse({
     status: 200,
     type: ResKnowledgeTypeList,
@@ -100,7 +118,10 @@ export class KnowledgeTypeController {
   }
 
   @Get('getChildren')
-  @ApiOperation({ title: '获取子知识分类列表 TODO' })
+  @ApiOperation({
+    title: '获取子知识分类列表 TODO',
+    operationId: 'getChildren',
+  })
   @ApiResponse({
     status: 200,
     type: ResKnowledgeTypeList,
@@ -110,7 +131,10 @@ export class KnowledgeTypeController {
   }
 
   @Get('getChildrenTree')
-  @ApiOperation({ title: '获取子知识分类列表树 TODO' })
+  @ApiOperation({
+    title: '获取子知识分类列表树 TODO',
+    operationId: 'getChildrenTree',
+  })
   @ApiResponse({
     status: 200,
     type: ResKnowledgeTypeTree,
