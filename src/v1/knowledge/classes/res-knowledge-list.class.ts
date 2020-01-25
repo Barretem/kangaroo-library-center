@@ -1,4 +1,4 @@
-import { ApiModelProperty } from '@nestjs/swagger';
+import { ApiProperty } from '@nestjs/swagger';
 
 import { Single } from '../../../common/classes/single.classes';
 import { KnowledgeEntity } from '../../../common/entities/knowledge.entity';
@@ -8,6 +8,6 @@ export class ResKnowledgeList extends Single {
     super();
   }
 
-  @ApiModelProperty({ type: [KnowledgeEntity] })
+  @ApiProperty({ type: [KnowledgeEntity] })
   payload: object;
 }

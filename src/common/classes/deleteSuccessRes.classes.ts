@@ -1,20 +1,20 @@
-import { ApiModelProperty } from '@nestjs/swagger';
+import { ApiProperty } from '@nestjs/swagger';
 
 export class DeleteSuccessRes {
-  @ApiModelProperty({
+  @ApiProperty({
     example: 0,
     description: '返回码，0: 成功；1: 失败',
     enum: [0, 1],
   })
   code: 0;
 
-  @ApiModelProperty({
+  @ApiProperty({
     example: 'success',
     description: '返回描述（成功为success, 失败为对应的描述）',
   })
   message: 'success';
 
-  @ApiModelProperty({
+  @ApiProperty({
     example: true,
     description: 'true: 操作成功；false: 操作失败',
   })

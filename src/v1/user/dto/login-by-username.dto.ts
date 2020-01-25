@@ -1,12 +1,12 @@
 import { IsString, MinLength } from 'class-validator';
-import { ApiModelProperty } from '@nestjs/swagger';
+import { ApiProperty } from '@nestjs/swagger';
 
 export class LoginByUsernameDto {
-  @ApiModelProperty({ required: true })
+  @ApiProperty({ required: true })
   @IsString()
   readonly username: string;
 
-  @ApiModelProperty({ required: true, minLength: 6 })
+  @ApiProperty({ required: true, minLength: 6 })
   @IsString()
   @MinLength(6)
   readonly password: string;

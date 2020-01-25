@@ -1,20 +1,20 @@
 import { IsString, IsNumber } from 'class-validator';
-import { ApiModelProperty, ApiModelPropertyOptional } from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 export class ChangeKnowledgeTypeDto {
-  @ApiModelProperty({ description: '分类名称'})
+  @ApiProperty({ description: '分类名称'})
   @IsString()
   readonly typeName: string;
 
-  @ApiModelPropertyOptional({ description: '分类描述' })
+  @ApiPropertyOptional({ description: '分类描述' })
   @IsString()
   readonly description?: string;
 
-  @ApiModelProperty({ description: '创建人ID' })
+  @ApiProperty({ description: '创建人ID' })
   @IsString()
   readonly updatedBy: string;
 
-  @ApiModelPropertyOptional({ description: '父ID' })
+  @ApiPropertyOptional({ description: '父ID' })
   @IsNumber()
   readonly parentId?: number;
 }

@@ -1,4 +1,4 @@
-import { ApiModelProperty } from '@nestjs/swagger';
+import { ApiProperty } from '@nestjs/swagger';
 
 import { Single } from '../../../common/classes/single.classes';
 import { LoginUserClass } from './login.class';
@@ -8,6 +8,6 @@ export class ResLoginClass extends Single {
     super();
   }
 
-  @ApiModelProperty({ type: [LoginUserClass] })
+  @ApiProperty({ type: [LoginUserClass] })
   payload: object;
 }

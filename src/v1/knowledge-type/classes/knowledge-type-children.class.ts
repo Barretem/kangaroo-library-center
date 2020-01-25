@@ -1,8 +1,8 @@
-import { ApiModelProperty } from '@nestjs/swagger';
+import { ApiProperty } from '@nestjs/swagger';
 
 import { KnowledgeTypeEntity } from '../../../common/entities/knowledge-type.entity';
 
 export class KnowledgeTypeChildrenClass extends KnowledgeTypeEntity {
-  @ApiModelProperty({ type: [KnowledgeTypeEntity] })
+  @ApiProperty({ type: [KnowledgeTypeEntity] })
   children: object;
 }

@@ -13,7 +13,7 @@ import {
   ApiBearerAuth,
   ApiOperation,
   ApiResponse,
-  ApiUseTags,
+  ApiTags,
 } from '@nestjs/swagger';
 
 import { KnowledgeService } from './knowledge.service';
@@ -26,7 +26,7 @@ import { CreateKnowledgeDto } from './dto/create-knowledge.dto';
 import { ChangeKnowledgeDto } from './dto/change-knowledge.dto';
 
 @ApiBearerAuth()
-@ApiUseTags('knowledge')
+@ApiTags('knowledge')
 @Controller('knowledge')
 @UseInterceptors(ClassSerializerInterceptor)
 export class KnowledgeController {
@@ -34,7 +34,7 @@ export class KnowledgeController {
 
   @Post()
   @ApiOperation({
-    title: '创建知识点',
+    summary: '创建知识点',
     operationId: 'create',
   })
   @ApiResponse({
@@ -51,7 +51,7 @@ export class KnowledgeController {
 
   @Delete(':ids')
   @ApiOperation({
-    title: '根据ID删除知识点',
+    summary: '根据ID删除知识点',
     operationId: 'delete',
   })
   @ApiResponse({
@@ -64,7 +64,7 @@ export class KnowledgeController {
 
   @Put(':id')
   @ApiOperation({
-    title: '根据ID修改知识点',
+    summary: '根据ID修改知识点',
     operationId: 'change',
   })
   @ApiResponse({
@@ -77,7 +77,7 @@ export class KnowledgeController {
 
   @Get(':id')
   @ApiOperation({
-    title: '根据ID获取知识点详情',
+    summary: '根据ID获取知识点详情',
     operationId: 'getOne',
   })
   @ApiResponse({
@@ -90,7 +90,7 @@ export class KnowledgeController {
 
   @Get()
   @ApiOperation({
-    title: '获取知识点列表',
+    summary: '获取知识点列表',
     operationId: 'getList',
   })
   @ApiResponse({

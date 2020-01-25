@@ -14,7 +14,7 @@ import {
   ApiBearerAuth,
   ApiOperation,
   ApiResponse,
-  ApiUseTags,
+  ApiTags,
 } from '@nestjs/swagger';
 
 import { ErrorRes } from '../../common/classes/errorRes.classes';
@@ -29,7 +29,7 @@ import { CreateKnowledgeTypeDto } from './dto/create-knowledge-type.dto';
 import { ChangeKnowledgeTypeDto } from './dto/change-knowledge-type.dto';
 
 @ApiBearerAuth()
-@ApiUseTags('knowledgeType')
+@ApiTags('knowledge-type')
 @Controller('knowledge-type')
 @UseInterceptors(ClassSerializerInterceptor)
 export class KnowledgeTypeController {
@@ -37,7 +37,7 @@ export class KnowledgeTypeController {
 
   @Post()
   @ApiOperation({
-    title: '创建知识',
+    summary: '创建知识',
     operationId: 'create',
   })
   @ApiResponse({
@@ -54,7 +54,7 @@ export class KnowledgeTypeController {
 
   @Delete(':ids')
   @ApiOperation({
-    title: '删除知识分类',
+    summary: '删除知识分类',
     operationId: 'delete',
   })
   @ApiResponse({
@@ -67,7 +67,7 @@ export class KnowledgeTypeController {
 
   @Put(':id')
   @ApiOperation({
-    title: '修改知识分类',
+    summary: '修改知识分类',
     operationId: 'change',
   })
   @ApiResponse({
@@ -80,7 +80,7 @@ export class KnowledgeTypeController {
 
   @Get('getTree')
   @ApiOperation({
-    title: '获取知识分类列表树',
+    summary: '获取知识分类列表树',
     operationId: 'getTree',
   })
   @ApiResponse({
@@ -93,7 +93,7 @@ export class KnowledgeTypeController {
 
   @Get(':id')
   @ApiOperation({
-    title: '根据ID获取知识分类',
+    summary: '根据ID获取知识分类',
     operationId: 'getOne',
   })
   @ApiResponse({
@@ -106,7 +106,7 @@ export class KnowledgeTypeController {
 
   @Get()
   @ApiOperation({
-    title: '获取知识分类列表',
+    summary: '获取知识分类列表',
     operationId: 'getList',
   })
   @ApiResponse({
@@ -119,7 +119,7 @@ export class KnowledgeTypeController {
 
   @Get('getChildren')
   @ApiOperation({
-    title: '获取子知识分类列表 TODO',
+    summary: '获取子知识分类列表 TODO',
     operationId: 'getChildren',
   })
   @ApiResponse({
@@ -132,7 +132,7 @@ export class KnowledgeTypeController {
 
   @Get('getChildrenTree')
   @ApiOperation({
-    title: '获取子知识分类列表树 TODO',
+    summary: '获取子知识分类列表树 TODO',
     operationId: 'getChildrenTree',
   })
   @ApiResponse({

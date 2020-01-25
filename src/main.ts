@@ -5,6 +5,33 @@ import { AppModule } from './app.module';
 import { payload } from './common/middleware/payload.middleware';
 import { TransformInterceptor } from './common/interceptor/transform.interceptor';
 import { HttpExceptionFilter } from './common/filters/http-exception.filter';
+import { AuthModule } from './v1/auth/auth.module';
+import { UserModule } from './v1/user/user.module';
+import { KnowledgeTypeModule } from './v1/knowledge-type/knowledge-type.module';
+import { KnowledgeModule } from './v1/knowledge/knowledge.module';
+
+interface TagsListType {
+  readonly tag: string;
+  readonly module: any;
+}
+
+const createTagsDocs = (app, tagsList: TagsListType[]) => {
+  tagsList.forEach(item => {
+    const { tag, module} = item;
+    const options = new DocumentBuilder()
+      .setTitle('袋鼠库后台API')
+      .setDescription('袋鼠库后台API列表')
+      .setBasePath('kangaroo-library-center')
+      .setVersion('1.0')
+      .addTag(tag)
+      .addBearerAuth()
+      .build();
+    const document = SwaggerModule.createDocument(app, options, {
+      include: [module],
+    });
+    SwaggerModule.setup(`apiDoc/${tag}`, app, document);
+  });
+};
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -17,6 +44,25 @@ async function bootstrap() {
     .build();
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('apiDoc', app, document);
+  const tagsList = [
+    {
+      tag: 'auth',
+      module: AuthModule,
+    },
+    {
+      tag: 'user',
+      module: UserModule,
+    },
+    {
+      tag: 'knowledge',
+      module: KnowledgeModule,
+    },
+    {
+      tag: 'knowledge-type',
+      module: KnowledgeTypeModule,
+    },
+  ];
+  createTagsDocs(app, tagsList);
   app.use(payload);
   app.setGlobalPrefix('kangaroo-library-center');
   // 全局注册错误的过滤器

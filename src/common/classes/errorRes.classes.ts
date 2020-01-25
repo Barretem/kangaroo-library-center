@@ -1,26 +1,26 @@
-import { ApiModelProperty } from '@nestjs/swagger';
+import { ApiProperty } from '@nestjs/swagger';
 
 export class ErrorRes {
-  @ApiModelProperty({
+  @ApiProperty({
     example: 1,
     description: '返回码，0: 成功 1: 失败',
     enum: [0, 1],
   })
   code: number;
 
-  @ApiModelProperty({
+  @ApiProperty({
     example: 'fail',
     description: '返回描述（成功为success, 失败为fail）',
   })
   message: string;
 
-  @ApiModelProperty({
+  @ApiProperty({
     example: '返回的错误信息，为字符串时为错误描述；为数组或对象时为错误详情',
     description: '返回的错误信息，为字符串时为错误描述；为数组或对象时为错误详情',
   })
   payload: string | object;
 
-  @ApiModelProperty({
+  @ApiProperty({
     example: '/user',
     description: '请求的URL路径',
   })

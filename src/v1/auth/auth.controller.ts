@@ -12,12 +12,13 @@ import { ResLoginClass } from './classes/res-login.class';
 import {
   ApiBearerAuth,
   ApiOperation,
-  ApiUseTags,
   ApiResponse,
+  ApiTags,
 } from '@nestjs/swagger';
 
 @ApiBearerAuth()
-@ApiUseTags('auth')
+@ApiTags('auth')
+@ApiTags('auth')
 @Controller('auth')
 export class AuthController {
   constructor(
@@ -26,7 +27,7 @@ export class AuthController {
   ) {}
   @Post('loginByEmail')
   @ApiOperation({
-    title: '根据用户邮箱登录',
+    summary: '根据用户邮箱登录',
     operationId: 'loginByEmail',
   })
   @ApiResponse({
@@ -47,7 +48,7 @@ export class AuthController {
 
   @Post('loginByUsername')
   @ApiOperation({
-    title: '根据用户名密码登录',
+    summary: '根据用户名密码登录',
     operationId: 'loginByUsername',
   })
   @ApiResponse({

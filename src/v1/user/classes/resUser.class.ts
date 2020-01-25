@@ -1,4 +1,4 @@
-import { ApiModelProperty } from '@nestjs/swagger';
+import { ApiProperty } from '@nestjs/swagger';
 
 import { Single } from '../../../common/classes/single.classes';
 import { UserEntity } from '../../../common/entities/user.entity';
@@ -8,6 +8,6 @@ export class ResUser extends Single {
     super();
   }
 
-  @ApiModelProperty({ type: UserEntity })
+  @ApiProperty({ type: UserEntity })
   payload: object;
 }

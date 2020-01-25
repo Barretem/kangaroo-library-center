@@ -16,7 +16,7 @@ import {
   ApiBearerAuth,
   ApiOperation,
   ApiResponse,
-  ApiUseTags,
+  ApiTags,
 } from '@nestjs/swagger';
 import { UserService } from './user.service';
 import { ResUser } from './classes/resUser.class';
@@ -31,7 +31,7 @@ import { ChangeUserInfoDto } from './dto/change-user-info.dto';
 import { managerPass } from '../../common/utils/index';
 
 @ApiBearerAuth()
-@ApiUseTags('user')
+@ApiTags('user')
 @Controller('user')
 @UseInterceptors(ClassSerializerInterceptor)
 @UseGuards(AuthGuard('jwt'))
@@ -39,7 +39,7 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Post()
-  @ApiOperation({ title: '用户注册/创建用户', operationId: 'createOne' })
+  @ApiOperation({ summary: '用户注册/创建用户', operationId: 'createOne' })
   @ApiResponse({
     status: 201,
     type: ResUser,
@@ -57,7 +57,7 @@ export class UserController {
 
   @Delete(':ids')
   @ApiOperation({
-    title: '单个/批量删除用户',
+    summary: '单个/批量删除用户',
     description: '如果要删除多个用‘,’隔开',
     operationId: 'deleteUsers',
   })
@@ -77,7 +77,7 @@ export class UserController {
 
   @Put(':id')
   @ApiOperation({
-    title: '根据用户ID修改用户信息',
+    summary: '根据用户ID修改用户信息',
     operationId: 'changeUserInfo',
   })
   @ApiResponse({
@@ -105,7 +105,7 @@ export class UserController {
 
   @Get(':id')
   @ApiOperation({
-    title: '根据用户ID获取用户信息',
+    summary: '根据用户ID获取用户信息',
     operationId: 'findOne',
   })
   @ApiResponse({
@@ -122,7 +122,7 @@ export class UserController {
 
   @Get()
   @ApiOperation({
-    title: '获取用户列表',
+    summary: '获取用户列表',
     operationId: 'findAll',
   })
   @ApiResponse({

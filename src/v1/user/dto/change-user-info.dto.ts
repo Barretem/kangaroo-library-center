@@ -1,5 +1,5 @@
 import { IsString, IsEmail, MinLength } from 'class-validator';
-import { ApiModelProperty } from '@nestjs/swagger';
+import { ApiProperty } from '@nestjs/swagger';
 
 enum UserRole {
   ROOT = 'root',
@@ -10,21 +10,21 @@ enum UserRole {
 export class ChangeUserInfoDto {
   readonly userId?: string;
 
-  @ApiModelProperty()
+  @ApiProperty()
   @IsString()
   readonly username: string;
 
-  @ApiModelProperty()
+  @ApiProperty()
   @IsString()
   @IsEmail()
   readonly email: string;
 
-  @ApiModelProperty()
+  @ApiProperty()
   @IsString()
   @MinLength(6)
   readonly password: string;
 
-  @ApiModelProperty({ enum: UserRole })
+  @ApiProperty({ enum: UserRole })
   @IsString()
   readonly role: UserRole;
 }
